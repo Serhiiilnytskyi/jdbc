@@ -1,5 +1,7 @@
 package za.co.johanbasson.jdbc;
 
+import org.junit.Test;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -32,6 +34,8 @@ public class DatabaseTest {
 
         //then
         assertEquals(2, items.size());
+
+        db.close();
     }
 
     @org.junit.Test
@@ -50,10 +54,29 @@ public class DatabaseTest {
 
         //then
         assertEquals("abc", val);
+
+        db.close();
     }
 
+    @org.junit.Test
     public void testStartTransaction() throws Exception {
+        //given
+        Database db = new Database("org.h2.Driver", "jdbc:h2:target/test", "sa", "");
 
+        //when
+        db.update("DROP TABLE IF EXISTS test ").execute();
+        db.update("CREATE TABLE test (val1 int, val2 varchar(10), val3 date)").execute();
+
+        Transaction tr = db.startTransaction();
+        tr.update("INSERT INTO test VALUES (1, 'abc', CURRENT_DATE())").execute();
+        tr.commit();
+
+        String val = db.query("SELECT val2 FROM test WHERE val1 = 1").queryForString();
+
+        //then
+        assertEquals("abc", val);
+
+        db.close();
     }
 
     class Test {

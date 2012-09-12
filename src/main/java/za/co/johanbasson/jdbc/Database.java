@@ -35,11 +35,11 @@ public class Database {
     }
 
     public Query query(String statement) throws SQLException {
-        return new QueryImpl(dataSource.getConnection(), statement);
+        return new QueryImpl(dataSource.getConnection(), statement, true);
     }
 
     public Update update(String statement) throws SQLException {
-        return new UpdateImpl(dataSource.getConnection(), statement);
+        return new UpdateImpl(dataSource.getConnection(), statement, true);
     }
 
     public Transaction startTransaction() throws SQLException {

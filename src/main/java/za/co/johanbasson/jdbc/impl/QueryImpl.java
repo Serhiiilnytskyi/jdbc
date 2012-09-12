@@ -10,8 +10,11 @@ import java.util.List;
 
 public class QueryImpl<T> extends Statement<Query> implements Query<T> {
 
-    public QueryImpl(Connection connection, String statement) throws SQLException {
+    private boolean autoClose = true;
+
+    public QueryImpl(Connection connection, String statement, boolean autoClose) throws SQLException {
         super(connection, statement);
+        this.autoClose = autoClose;
     }
 
     @Override
@@ -27,7 +30,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return out;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -42,7 +47,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -57,7 +64,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -72,7 +81,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -87,7 +98,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -102,7 +115,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -117,7 +132,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 
@@ -133,7 +150,9 @@ public class QueryImpl<T> extends Statement<Query> implements Query<T> {
             return null;
         } finally {
             JdbcUtil.close(rs);
-            close();
+            if (autoClose) {
+                close();
+            }
         }
     }
 

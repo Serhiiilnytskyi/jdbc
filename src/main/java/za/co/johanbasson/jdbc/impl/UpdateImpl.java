@@ -7,14 +7,19 @@ import java.sql.SQLException;
 
 public class UpdateImpl extends Statement<Update> implements Update {
 
-    public UpdateImpl(Connection connection, String statement) throws SQLException {
+    private boolean autoClose = true;
+
+    public UpdateImpl(Connection connection, String statement, boolean autoClose) throws SQLException {
         super(connection, statement);
+        this.autoClose = autoClose;
     }
 
     @Override
     public void execute() throws SQLException {
         namedParameterStatement.execute();
-        close();
+        if (autoClose) {
+            close();
+        }
     }
 
 }
